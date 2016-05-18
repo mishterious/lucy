@@ -1,0 +1,45 @@
+<html>
+<head>
+ <title></title>
+</head>
+<body>
+ <h3>Add a Quote!</h3>
+ <form class='form' action='/login' method='post'>
+    Name: <input class='form-control' type='text' name='username'>
+    Password! <textarea class='form-control' type='text' name='password'></textarea>
+    <input type="submit" value="Submit">
+  <a href="/users" role="button">To the Quotes</a>
+ </form>
+
+
+ <a href="/users" >Get all Deephouse</a>
+
+ <form class='form' action='/createUser' method='post'>
+    Name: <input class='form-control' type='text' name='username'>
+    Password! <textarea class='form-control' type='text' name='password'></textarea>
+    <input type="submit" value="Submit">
+  <a href="/users" role="button">To the Quotes</a>
+ </form>
+
+<form class='form' action='/songs/7' method="post">
+ 	<input type = "submit" value="Submit">
+ </form>
+</br>
+</br>
+</br>
+
+<form class ="form" action="/createSong" method="post">
+	<input type = "text" class ="form-control" name="artist" placeholder="artist">
+	<input type = "text" class ="form-control" name="title" placeholder="title">
+	<select name="genre">
+		<option value="1">Deep House</option>
+		<option value="2">Trance</option>
+		<option value="3">Progressive House</option>
+		<option value="4">Psy</option>
+		<option value="5">Chill</option>
+	</select> 
+	<input type = "submit" value= "submit">
+</form>
+
+</body>
+</html>
