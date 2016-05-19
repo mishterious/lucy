@@ -4,10 +4,33 @@
 </head>
 <body>
   <h2>Here are the awesome quotes!</h2>
+  <%  for (var i in songs) { %>
+	  <form class="form" action ="updateSong/<%= songs[i]._id %>" method="post">
+	  	<h3>Artist: <%= songs[i].artist %> </h3>
+	    <h3>Title: <%= songs[i].title %> </h3>
+	    <h5>Mood: <%= songs[i].mood %> </h5>
+	    <select name="mood">
+			<option value="1">Party</option>
+			<option value="2">Rave</option>
+			<option value="3">Drive</option>
+			<option value="4">Trip</option>
+			<option value="5">Chill</option>
+		</select> 
 
-    <h3>Name: <%= user.username %> </h3>
-    <h3>Quote: <%= user.password %> </h3>
-    <hr>
+		<h5>Genre: <%= songs[i].genre %> </h5>
+		<select name="genre">
+			<option value="Deep House">Deep House</option>
+			<option value="Progressive House">Progressive House</option>
+			<option value="Electronica">Electronica</option>
+			<option value="Trance">Trance</option>
+			<option value="Psy">Psy</option>
+			<option value="Downtempo">Down Tempo</option>
+			<option value="Classics">Classics</option>
+			<option value="Hip Hop">Hip Hop</option>
+			<option value="Jazz">Jazz</option>
+		</select>
+		<input type = "submit" value= "submit">
+		</form>
   <% } %>
 </body>
 </html>

@@ -7,15 +7,27 @@ module.exports = (function(){
 
 	getPlaylist: function(req,res){
 		console.log(req.params.id);
-		Song.find({genre : req.params.id}, function(err, songs){
+		Song.find({mood : req.params.id}, function(err, songs){
 			if(err){
 				// console.log(err);
 			} else {
 
+				console.log(songs);
 
-				res.json(songs);
-				// for(var i = 0; i<songs.length; )
-				// return songs;
+				var playlists = {
+					playlist : songs
+				};
+				
+				// foreach playlist in playlists
+
+				// for(var i=0; i<songs.length; i++){
+				// 	playlists += songs[i];
+				// }
+
+				// console.log(playlists);
+
+
+				return res.json(playlists);
 			}
 		});
 	},
@@ -32,65 +44,6 @@ module.exports = (function(){
 
 	},
 
-	getRecommendedSongs: function(req,res){
-		User.findOne({username: req.body.username}, function(err, user){
-			console.log(user);
-
-			var genres = [0,0,0,0,0]
-			for(var i=0; i<user.tags.length; i++){
-				if(user.tags == 1){
-					genres[0] += 1
-				}
-				if(user.tags == 2){
-					genres[1] += 1
-				}
-				if(user.tags == 3){
-					genres[2] += 1
-				}
-				if(user.tags == 4){
-					genres[3] += 1
-				}
-				if(user.tags == 5){
-					genres[4] += 1
-				}
-			}
-
-			for(var i=0; i<genres.length; i++){
-				genres[i] = Math.floor(genres[i] / user.tags.length);
-			}
-			console.log(genres);
-
-			// process and send recommendations
-		});
-	},
-
-
-	addFav: function(req,res){
-		var tag; 
-		Song.findOne({_id:req.params.id}, function(err, song){
-			if(err){
-				console.log(err);
-			} else {
-				console.log(song);
-				tag = song.genre;
-				console.log(req.body.username);
-
-				User.update({username: req.body.username}, {$push:{tag:tag}}, {upsert:true}, function(err, user){
-					if(err)
-					{
-						console.log(err);
-					} else {
-					console.log(user);
-					// user.fav_songs.push(req.params.id);
-					// var update = user.tag.push(tag);
-					console.log(tag);
-					}
-				});
-			}
-		});
-
-		
-	},
 
 	getFav: function(req, res){
 		User.findOne({username: req.body.username}, function(err, user){
@@ -104,6 +57,7 @@ module.exports = (function(){
 						songArr.push(song.title);
 						songArr.push(song.artist);
 						songArr.push(song.genre);
+						songArr.push(song.mood);
 						songArr.push(song._id);
 						all_songs.push(songArr);
 					});
@@ -123,9 +77,20 @@ module.exports = (function(){
 			{
 				console.log("Found him");
 				console.log(songs);
-				res.json(songs);
+				// res.json(songs);
+				return res.render("users", {songs: songs})
 			}
 		});
+	},
+
+	getAllSongs2: function(req, res) {
+		Song.find({}, function(err, songs) {
+			if(err) {
+				console.log(err);
+			} else {
+				console.log(songs);
+			}
+		})
 	},
 
 	createSong: function(req, res){
@@ -134,7 +99,9 @@ module.exports = (function(){
 				var song = new Song ({
 					artist : req.body.artist,
 					title : req.body.title,
-					genre : req.body.genre
+					genre : req.body.genre,
+					mood : req.body.mood,
+					favorited : false
 				});
 
 				song.save(function(err, song){
@@ -148,6 +115,19 @@ module.exports = (function(){
 			}
 
 		});
+	},
+
+	updateSong: function(req, res){
+
+		Song.update({_id: req.params.id}, {$set:{genre:req.body.genre, mood: req.body.mood}}, {upsert:true}, function(err, song){
+			if(err)
+			{
+				console.log(err);
+			} else {
+			console.log(song);
+			}
+		});
+
 	}
 }
 })();

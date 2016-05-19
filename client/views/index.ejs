@@ -21,32 +21,67 @@
   <a href="/users" role="button">To the Quotes</a>
  </form>
 
-<form class='form' action='/songs/573d33b995d59c93cbb2e465' method="post">
+<form class='form' action='/addFav' method="post">
 	<h3>Pick My favorite Song</h3>
 	<input type ="hidden" name="username" value="mish">
+	<input type ="hidden" name="song_id" value="573d33d295d59c93cbb2e467">
+	<input type ="hidden" name="song_genre" value="Psy">
  	<input type = "submit" value="Submit">
  </form>
+
+<form class='form' action='/deleteFav' method="post">
+	<h3>Delete My favorite Song</h3>
+	<input type ="hidden" name="username" value="mish">
+	<input type ="hidden" name="song_id" value="573d33d295d59c93cbb2e467">
+	<input type ="hidden" name="song_genre" value="Psy">
+ 	<input type = "submit" value="Submit">
+ </form>
+
 </br>
+</br>
+
+<form class="form" action="/getAllSongs2" method="post">
+	<h3>Get all Songs</h3>
+	<input type='submit' value='submit'>
+</form>
 </br>
 </br>
 
 <form class ="form" action="/createSong" method="post">
 	<input type = "text" class ="form-control" name="artist" placeholder="artist">
 	<input type = "text" class ="form-control" name="title" placeholder="title">
-	<select name="genre">
+	<select name="mood">
 		<option value="1">Party</option>
 		<option value="2">Rave</option>
 		<option value="3">Drive</option>
 		<option value="4">Trip</option>
 		<option value="5">Chill</option>
 	</select> 
+	<select name="genre">
+		<option value="Deep House">Deep House</option>
+		<option value="Progressive House">Progressive House</option>
+		<option value="Electronica">Electronica</option>
+		<option value="Trance">Trance</option>
+		<option value="Psy">Psy</option>
+		<option value="Downtempo">Down Tempo</option>
+		<option value="Classics">Classics</option>
+		<option value="Hip Hop">Hip Hop</option>
+		<option value="Jazz">Jazz</option>
+	</select>
 	<input type = "submit" value= "submit">
 </form>
 
 <a href="getAllSongs" role="button">Get all Songs</a>
 
 <a href="playlist/5" role="button">Playlists</a>
+</br>
+</br>
 
+
+	<a href="getRecommendations/mish" role="button">Get all Songs</a>
+
+</br>
+</br>
 
 </body>
 </html>

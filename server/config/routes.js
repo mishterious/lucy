@@ -8,7 +8,7 @@ var users = require('../controllers/users.js');
 module.exports = function(app) {
 
   app.get('/', function (req, res) {
-    res.render("index");
+    res.render('index');
   });
 
   app.post('/createUser', function (req, res) {
@@ -29,23 +29,45 @@ module.exports = function(app) {
       res.send("You requested the user with id: " + req.params.id);
   });
 
-  app.post("/songs/:id", function (req, res) {
-      songs.addFav(req,res);
+  app.post("/addFav", function (req, res) {
+      users.addFav(req,res);
+  });
+
+  app.post("/deleteFav", function (req, res) {
+      users.deleteFav(req,res);
+  });
+
+  app.post("/getFavs", function (req, res) {
+    users.getFavs(req, res);
   });
   
   app.get("/getAllSongs", function (req, res) {
-      var sing = songs.getAllSongs(req, res);
-      console.log(sing);
+      songs.getAllSongs(req, res);
+      
+  });
+
+  app.post("/getAllSongs2", function (req, res) {
+    songs.getAllSongs2(req, res);
   });
 
   app.get("/playlist/:id", function (req, res) {
       songs.getPlaylist(req, res);
-      // console.log(res);
   });
 
   app.post("/createSong", function (req,res) {
       songs.createSong(req,res);
-      res.redirect("/");
+  });
+
+  app.post("/addFavoriteBoolean", function(req, res) {
+      songs.addFavoriteBoolean(req,res);
+  });
+
+  app.post("/updateSong/:id", function (req, res) {
+      songs.updateSong(req, res);
+  });
+
+  app.get("/getRecommendations/:id", function (req, res) {
+      users.getRecommendations(req, res);
   });
 
 }

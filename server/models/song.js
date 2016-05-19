@@ -4,8 +4,10 @@ var mongoose = require('mongoose');
 var SongSchema = new mongoose.Schema({
   artist: String,
   title: String,
-  tags: Array,
-  genre: String
+  mood: String,
+  genre: String,
+  tag: Array,
+  favorited: Boolean
 });
 // register the schema as a model
 
