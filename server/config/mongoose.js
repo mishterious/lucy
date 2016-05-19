@@ -4,6 +4,8 @@ var mongoose = require('mongoose');
 var fs = require('fs');
 // require path for getting the models path
 var path = require('path');
+
+var Q = require('q');
 // connect to mongoose!
 mongoose.connect('mongodb://localhost/lts');
 // create a variable that points to the path where all of the models live

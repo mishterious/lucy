@@ -266,6 +266,22 @@ module.exports = (function() {
 	},
 
 	getRecommendations: function(req,res){
+
+		Q.fcall(function(error){
+			console.log("1123");
+		})
+		.then(function(error){
+			console.log("in here too");
+		})
+		.then(promisedStep3)
+		.then(promisedStep4)
+		.then(function (value4) {
+		    // Do something with value4
+		})
+		.catch(function (error) {
+		    // Handle any error from all above steps
+		})
+		.done();
 		var rec_songs = []
 		User.findOne({username: req.params.id}, function(err, user){
 			console.log(user);
