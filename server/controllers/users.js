@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
-module.exports = {
+module.exports = (function() {
+	return {
 
 	getAllUsers: function(req, res){
 	console.log('in the get function');
@@ -34,7 +35,7 @@ module.exports = {
 	},
 
 	create: function(req,res){
-
+		console.log("in create")
 		User.findOne({username: req.body.username}, function (err, founduser){
 
 			if(!founduser){
@@ -49,7 +50,8 @@ module.exports = {
 						console.log('something went wrong');
 					} else {
 						console.log('we did it!');
-						console.log(user);
+
+						// console.log(user);
 						return user;
 					}
 				});
@@ -59,7 +61,8 @@ module.exports = {
 			}
     	
     	});	
-	} 	
-	
+	}
 
-}
+	} 	
+})();
+

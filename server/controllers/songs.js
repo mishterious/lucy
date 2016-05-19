@@ -2,16 +2,20 @@ var mongoose = require('mongoose');
 var Song = mongoose.model('Song');
 var User = mongoose.model('User');
 
-module.exports = {
+module.exports = (function(){
+	return { 
 
 	getPlaylist: function(req,res){
-		Song.find({tag : req.body.tag}, function(err, songs){
+		console.log(req.params.id);
+		Song.find({genre : req.params.id}, function(err, songs){
 			if(err){
-				console.log(err);
+				// console.log(err);
 			} else {
 
-				console.log(songs);
-				return songs;
+
+				res.json(songs);
+				// for(var i = 0; i<songs.length; )
+				// return songs;
 			}
 		});
 	},
@@ -63,21 +67,29 @@ module.exports = {
 
 	addFav: function(req,res){
 		var tag; 
-		Song.findOne({_id: req.params.id}, function(err, song){
+		Song.findOne({_id:req.params.id}, function(err, song){
 			if(err){
 				console.log(err);
 			} else {
 				console.log(song);
-				tag = song.tag;
+				tag = song.genre;
+				console.log(req.body.username);
+
+				User.update({username: req.body.username}, {$push:{tag:tag}}, {upsert:true}, function(err, user){
+					if(err)
+					{
+						console.log(err);
+					} else {
+					console.log(user);
+					// user.fav_songs.push(req.params.id);
+					// var update = user.tag.push(tag);
+					console.log(tag);
+					}
+				});
 			}
 		});
 
-		req.body.username = "123";
-		console.log(req.body.username);
-		User.findOne({username: req.body.username}, function(err, user){
-			user.fav_songs.push(req.params.id);
-			user.tag.push(tag);
-		});
+		
 	},
 
 	getFav: function(req, res){
@@ -97,6 +109,21 @@ module.exports = {
 					});
 				}
 				return all_songs;
+			}
+		});
+	},
+
+	getAllSongs: function(req, res){
+		Song.find({}, function(err, songs){
+			if(err)
+			{
+				console.log("couldn't do it");
+			}
+			else
+			{
+				console.log("Found him");
+				console.log(songs);
+				res.json(songs);
 			}
 		});
 	},
@@ -122,7 +149,6 @@ module.exports = {
 
 		});
 	}
-
-
-
 }
+})();
+
